@@ -61,7 +61,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y dpkg-dev fakeroot
         #pip install appimage-builder
-    
+
+    - name: Download chrY_GRCh38.txt
+      shell: bash
+      run: |
+        mkdir -p required_files
+        curl -L -o required_files/chrY_GRCh38.txt https://github.com/sgbmzm/y-dna-analyzer/releases/Assets/chrY_GRCh38.txt
     
     # ---- Build ONEDIR first ----
     - name: Build onedir
@@ -76,8 +81,7 @@ jobs:
         ##########################################################
         # הכנת הקבצים הנוספים שצריך להוסיף לתיקיית ההתקנה
         COMMON_DATA="\
-        --add-data required_files/RSRS.txt${{ matrix.sep }}. \
-        --add-data required_files/rCRS.txt${{ matrix.sep }}. 
+        --add-data required_files/chrY_GRCh38.txt${{ matrix.sep }}. \
         "
 
         # עכשיו פקודת ייצוא קובץ ההתקנה
@@ -112,7 +116,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: bash
       run: |
-        APP_NAME="mtDNA_tool_simple"
+        APP_NAME="yDNA_tool"
         ARCH="${{ matrix.arch }}"   # הגדרת שם הארכיטקטורה
         
         echo "#define AppName \"$APP_NAME\"" > setup.iss
@@ -179,8 +183,7 @@ jobs:
         ##########################################################
         # הכנת הקבצים הנוספים שצריך להוסיף לתיקיית ההתקנה
         COMMON_DATA="\
-        --add-data required_files/RSRS.txt${{ matrix.sep }}. \
-        --add-data required_files/rCRS.txt${{ matrix.sep }}. 
+        --add-data required_files/chrY_GRCh38.txt${{ matrix.sep }}. \ 
         "
 
         # עכשיו פקודת ייצוא קובץ ההתקנה
