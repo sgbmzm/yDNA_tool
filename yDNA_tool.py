@@ -14,7 +14,7 @@ def load_fasta(filename):
 
 
 # שנה לשם הקובץ שלך
-sequence = load_fasta("chrY.txt")
+sequence = load_fasta("chrY_GRCh38.txt")
 
 
 def check_position():
